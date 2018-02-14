@@ -11,6 +11,11 @@ contract Ballot {
         uint voteCount;
     }
 
+    uint voterCount;
+    // 50% majority wins
+    uint votingFactor = 2;
+
+
     address chairperson;
     mapping(address => Voter) voters;
     Proposal[] proposals;
@@ -20,6 +25,7 @@ contract Ballot {
         chairperson = msg.sender;
         voters[chairperson].weight = 1;
         proposals.length = _numProposals;
+        voterCount = 0;
     }
 
     /// Give $(toVoter) the right to vote on this ballot.
@@ -27,6 +33,7 @@ contract Ballot {
     function giveRightToVote(address toVoter) public {
         if (msg.sender != chairperson || voters[toVoter].voted) return;
         voters[toVoter].weight = 1;
+        voterCount++;
     }
 
     /// Delegate your vote to the voter $(to).
@@ -57,7 +64,7 @@ contract Ballot {
     function winningProposal() public constant returns (uint8 _winningProposal) {
         uint256 winningVoteCount = 0;
         for (uint8 prop = 0; prop < proposals.length; prop++)
-            if (proposals[prop].voteCount > winningVoteCount) {
+            if (proposals[prop].voteCount > voterCount/votingFactor) {
                 winningVoteCount = proposals[prop].voteCount;
                 _winningProposal = prop;
             }
