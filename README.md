@@ -9,8 +9,11 @@ Main idea: Improve ERC20 specification to allow for the following items
 3) mechanisms to nuke projects that are not performing (I'm thinking the user can leave)
 
 Links to ERC20 standards -> https://theethereum.wiki/w/index.php/ERC20_Token_Standard
+
 original ERC20 proposal from Vitalik Buterin -> https://github.com/ethereum/wiki/wiki/Standardized_Contract_APIs/499c882f3ec123537fc2fccd57eaa29e6032fe4a
+
 post on DAICO by Vitalik Buterin on Ethereum Research + Comments -> https://ethresear.ch/t/explanation-of-daicos/465
+
 discussion on reddit -> https://www.reddit.com/r/ethereum/comments/3n8fkn/lets_talk_about_the_coin_standard/
 Incremint ICO, similar idea -> https://incremint.io/
 
