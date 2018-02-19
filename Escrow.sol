@@ -1,4 +1,4 @@
-pragma solidity 0.4.19;
+pragma solidity ^0.4.18;
 
 contract Escrow {
   address buyer;
@@ -14,46 +14,32 @@ contract Escrow {
     amount = _amount;
   }
 
-  function payoutSeller() returns (bool){
-      require(msg.sender == buyer || msg.sender ==arbiter);
+  function payoutSeller() public returns (bool) {
+      require(msg.sender == buyer || msg.sender == arbiter);
       // new function transfer instead of send used here to transfer to the seller
       seller.transfer(this.balance);
       return true;
   }
 
   function payoutSeller2() public returns (bool) {
-      if (msg.sender != buyer || msg.sender != arbiter){
-          throw;
+      if (msg.sender != buyer || msg.sender != arbiter) {
+          revert();
       } else {
            seller.transfer(this.balance);
            return true;
       }
   }
 
- function refundBuyer() returns (bool){
-     require(msg.sender == seller || msg.sender ==arbiter);
+ function refundBuyer() public returns (bool) {
+     require(msg.sender == seller || msg.sender == arbiter);
       // new function transfer instead of send used here to transfer to the seller
       buyer.transfer(this.balance);
       return true;
  }
     // if a function is going to be able to accept ether, is has to be payable
-    function fund() payable returns (bool){
+    function fund() payable public returns (bool) {
         require(msg.value == amount && msg.sender == buyer);
         return true;
     }
- // fallback function - accept payment from anyone
- //   function() payable {};
-
-//   function release() {
-//     if (msg.sender == agent)
-//       suicide(seller); // Send all funds to seller
-//     else
-//       throw;
-//   }
-//   function cancel() {
-//     if (msg.sender == agent)
-//       suicide(buyer); // Cancel escrow and return all funds to buyer
-//     else
-//       throw;
-//   }
 }
+ 
